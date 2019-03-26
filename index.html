@@ -60,7 +60,8 @@
 					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }
 				]
 			});
-
+			
+			// make slide change on mouse click
 			window.addEventListener("mousedown", handleClick, false);
 			window.addEventListener("contextmenu", function(e) { e.preventDefault(); }, false);
 
@@ -69,6 +70,17 @@
 				if(e.button === 0) Reveal.next(); 
 				if(e.button === 2) Reveal.prev(); 
 			}
+			
+			// reshuffle slides on completion of slide show
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+	    		if( Reveal.isFirstSlide() ) {
+	        		// randomize the order again
+	        		Reveal.shuffle();
+
+	        		// navigate to the first slide according to the new order
+	        		Reveal.slide( 0, 0 );
+	    		}
+			});
 		</script>
 	</body>
 </html>
